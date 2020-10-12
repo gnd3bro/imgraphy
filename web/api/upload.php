@@ -10,11 +10,11 @@
 
     $tmp_dir = "../../tmp/$uuid";
     $img_dir = "../files/img/$uuid";
-    $valid_ext = array('jpg','jpeg','png','gif','JPG','JPEG','PNG','GIF');
+    $valid_ext = array('jpg', 'jpeg', 'png', 'gif');
 
     $exception = $_FILES['uploadfile']['error'];
     $file_name = $_FILES['uploadfile']['name'];
-    $file_ext = array_pop(explode('.', $file_name));
+    $file_ext = strtolower(array_pop(explode('.', $file_name)));
 
     if($error != UPLOAD_ERR_OK) {
         echo "{\"code\":\"error\",\"log\":\"$exception\"}";
