@@ -1,6 +1,6 @@
 .DS_Store
 .vscode
-tmp/
-web/files/img/
-web/files/thumb/
+tmp/*
+web/files/img/*
+web/files/thumb/*
 key.json
