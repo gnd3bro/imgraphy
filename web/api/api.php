@@ -12,15 +12,25 @@
     function sql_query_img_list($handle) {
         $query = "SELECT * FROM `img_list`";
         $result = mysqli_query($handle, $query);
+        $result_array = array();
 
-        return mysqli_fetch_array($result);
+        while($row = mysqli_fetch_assoc($result)) {
+            array_push($result_array, $row);
+        }
+
+        return $result_array;
     }
 
     function sql_query_img_lookup($handle, $keyword) {
         $query = "SELECT * FROM `img_list` WHERE `uploader` LIKE '%$keyword%' OR `tag` LIKE '%$keyword%'";
         $result = mysqli_query($handle, $query);
-        
-        return mysqli_fetch_array($result);
+        $result_array = array();
+
+        while($row = mysqli_fetch_assoc($result)) {
+            array_push($result_array, $row);
+        }
+
+        return $result_array;
     }
 
     function sql_query_img_insert($handle, $uuid, $ext, $tag, $license, $uploader) {
