@@ -8,6 +8,14 @@
 
     $db_handle = sql_connect($keypath);
 
+    if(empty($page)) {
+        $page = "0";
+    }
+
+    if(empty($max)) {
+        $max = "20";
+    }
+
     if(empty($keyword)) {
         $array_list = sql_query_img_list($db_handle, $max, $page);
     } else {
