@@ -73,7 +73,9 @@
             break;
         
         default:
-            throw new Exception('이미지타입이 없습니다.');
+            throw new Exception('invalid image type');
+            echo "{\"code\":\"error\",\"log\":\"failed to gen thumbnail\"}";
+            exit;
     }
     
     $thumb_img_resource = imagecreatetruecolor($thumb_width, $thumb_height);
@@ -96,6 +98,5 @@
 
     if(file_exists("$img_dir/$uuid.$file_ext") & file_exists("$img_dir/$uuid.$file_ext")) {
         echo "{\"code\":\"success\",\"log\":\"uploaded\"}";
-        exit;
     }
 ?>
