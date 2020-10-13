@@ -47,9 +47,9 @@
     $thumb_width = $tmp_img_width;
     $thumb_height = $tmp_img_height;
     
-    if($tmp_img_height > 128){
-        $thumb_height = 128;
-        $thumb_width = floor($tmp_img_width * $thumb_height / $thumb_height);
+    if($tmp_img_height > 256){
+        $thumb_height = 256;
+        $thumb_width = floor($tmp_img_width * $thumb_height / $tmp_img_height);
     }
 
     switch ($mime) {
