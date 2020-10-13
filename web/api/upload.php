@@ -93,4 +93,9 @@
         echo "{\"code\":\"error\",\"log\":\"moving file failed\"}";
         exit;
     }
+
+    if(file_exists("$img_dir/$uuid.$file_ext") & file_exists("$img_dir/$uuid.$file_ext")) {
+        echo "{\"code\":\"success\",\"log\":\"uploaded\"}";
+        exit;
+    }
 ?>
