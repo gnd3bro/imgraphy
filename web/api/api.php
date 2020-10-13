@@ -40,6 +40,18 @@
         return $result;
     }
 
+    function sql_query_img_crement($handle, $uuid, $column, $type) {
+        $op = "+";
+        if($type == "dec") {
+            $op = "-";
+        }
+
+        $query = "UPDATE `img_list` SET `$column` = `$column` $op 1 WHERE `uuid` = '$uuid'";
+        $result = mysqli_query($handle, $query);
+        
+        return $result;
+    }
+
     function genuuid() {
         return sprintf('%08x-%04x-%04x-%04x-%04x%08x',
            mt_rand(0, 0xffffffff),
