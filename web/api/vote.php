@@ -1,6 +1,8 @@
 <?php
     require 'api.php';
 
+    header("Content-Type: application/json; charset=UTF-8");
+
     $keypath = "../../key.json";
     $uuid = $_GET['uuid'];
     $column = $_GET['column'];

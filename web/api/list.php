@@ -1,6 +1,8 @@
 <?php
     require 'api.php';
 
+    header("Content-Type: application/json; charset=UTF-8");
+
     $keypath = "../../key.json";
     $page = $_GET['page'];
     $max = $_GET['max'];
