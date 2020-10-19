@@ -5,7 +5,7 @@
 
     $confirm = $_GET['confirm'];
     
-    if(!strcmp($confirm, "true")) {
+    if(strcmp($confirm, "true")) {
         echo "{\"code\":\"error\",\"log\":\"user id genenration failed\"}";
         exit;
     }
