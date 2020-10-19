@@ -3,23 +3,14 @@
 
     header("Content-Type: application/json; charset=UTF-8");
 
-
     $confirm = $_GET['confirm'];
     
-
-
-
-    if($confirm == "true") {
-        $uuid = genuuid();
-        $idgen = "user-$uuid";
-        echo "{\"code\":\"success\",\"id\":\"user-$uuid\"}";
-        
-    }
-    else{
-        echo "{\"code\":\"error\",\"log\":\"idgenfailed\"}";
-
+    if(!strcmp($confirm, "true")) {
+        echo "{\"code\":\"error\",\"log\":\"user id genenration failed\"}";
+        exit;
     }
 
+    $idgen = "user-" . genuuid();
 
-
+    echo "{\"code\":\"success\",\"id\":\"$idgen\"}";
 ?>
