@@ -49,8 +49,8 @@
     $thumb_width = $tmp_img_width;
     $thumb_height = $tmp_img_height;
     
-    if($tmp_img_height > 256){
-        $thumb_height = 256;
+    if($tmp_img_height > 512){
+        $thumb_height = 512;
         $thumb_width = floor($tmp_img_width * $thumb_height / $tmp_img_height);
     }
 
