@@ -52,6 +52,18 @@
         return $result;
     }
 
+    function sql_query_img_set($handle, $uuid, $column, $set) {
+        $op = "1";
+        if($set == false) {
+            $op = "0";
+        }
+
+        $query = "UPDATE `img_list` SET `$column`= $op WHERE `uuid` = '$uuid'";
+        $result = mysqli_query($handle, $query);
+        
+        return $result;
+    }
+
     function genuuid() {
         return sprintf('%08x-%04x-%04x-%04x-%04x%08x',
            mt_rand(0, 0xffffffff),
