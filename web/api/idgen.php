@@ -12,5 +12,5 @@
 
     $idgen = "user-" . genuuid();
 
-    echo "{\"code\":\"success\",\"id\":\"$idgen\"}";
+    echo "{\"code\":\"success\",\"log\":\"$idgen\"}";
 ?>
