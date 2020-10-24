@@ -38,14 +38,17 @@
         exit;
     }
     
+    
     $tmp_img = "$tmp_dir/$uuid.$file_ext";
+    $thumb_name = "../files/thumb/$uuid.$file_ext";
+    
     $tmp_img_info = getimagesize($tmp_img);
     $mime = $tmp_img_info['mime'];
     
     $tmp_img_width = (int)trim($tmp_img_info[0]);
     $tmp_img_height = (int)trim($tmp_img_info[1]);
     
-    $thumb_name = "../files/thumb/$uuid.$file_ext";
+    
     $thumb_width = $tmp_img_width;
     $thumb_height = $tmp_img_height;
     
@@ -58,20 +61,27 @@
         case 'imge/jpeg':
             $create_function = 'imagecreatefromjpeg';
             $save_function = 'imagejpg';
+            imgconvert($thumb_width,$thumb_height,$tmp_img,$tmp_img_width,$tmp_img_height,$thumb_name,$create_function,$save_function);
+            
+            
             break;
         case 'image/jpeg':
             $create_function = 'imagecreatefromjpeg';
             $save_function = 'imagejpeg';
+            imgconvert($thumb_width,$thumb_height,$tmp_img,$tmp_img_width,$tmp_img_height,$thumb_name,$create_function,$save_function);           
+            
             break;
         
         case 'image/png':
             $create_function = 'imagecreatefrompng';
             $save_function = 'imagepng';
+            imgconvert($thumb_width,$thumb_height,$tmp_img,$tmp_img_width,$tmp_img_height,$thumb_name,$create_function,$save_function);           
+            
             break;
         
         case 'image/gif':
-            $create_function = 'imagecreatefromgif';
-            $save_function = 'imagegif';
+            convert($tmp_img, $thumb_name);      
+                        
             break;
         
         default:
@@ -80,13 +90,19 @@
             exit;
     }
     
+    function imgconvert($thumb_width,$thumb_height,$tmp_img,$tmp_img_width,$tmp_img_height,$thumb_name,$create_function,$save_function){
     $thumb_img_resource = imagecreatetruecolor($thumb_width, $thumb_height);
     $tmp_img_resource = $create_function($tmp_img);
-
     imagecopyresampled($thumb_img_resource, $tmp_img_resource, 0, 0, 0, 0, $thumb_width, $thumb_height, $tmp_img_width, $tmp_img_height);
-    
     $save_function($thumb_img_resource, $thumb_name, 9);
-   
+    }
+
+
+    function convert($tmp_img, $thumb_name){
+    exec ("convert $tmp_img -coalesce $thumb_name");
+    exec ("convert $thumb_name -resize 512x512 $thumb_name");
+    }
+
     $db_handle = sql_connect($keypath);
     if(!sql_query_img_insert($db_handle, $uuid, $file_ext, $tag, $license, $uploader)) {
         echo "{\"code\":\"error\",\"log\":\"sql insertion failed\"}";
