@@ -72,11 +72,6 @@
             echo "{\"code\":\"error\",\"log\":\"failed to gen thumbnail\"}";
             exit;
     }
-      
-    function convert($tmp_img, $thumb_name){
-    exec ("convert $tmp_img -coalesce $thumb_name");
-    exec ("convert $thumb_name -resize 512x512 $thumb_name");
-    }
 
     $db_handle = sql_connect($keypath);
     if(!sql_query_img_insert($db_handle, $uuid, $file_ext, $tag, $license, $uploader)) {

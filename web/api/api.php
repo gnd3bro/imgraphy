@@ -71,4 +71,9 @@
            mt_rand(0, 0xffff), mt_rand(0, 0xffffffff)
          );
      }
+      
+    function convert($tmp_img, $thumb_name) {
+        exec ("convert $tmp_img -coalesce $thumb_name");
+        exec ("convert $thumb_name -resize 512x512 $thumb_name");
+    }
 ?>
