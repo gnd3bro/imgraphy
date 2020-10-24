@@ -10,7 +10,7 @@
     }
 
     function sql_query_img_list($handle, $max, $page) {
-        $query = "SELECT * FROM `img_list` ORDER BY `date` DESC LIMIT " . $page * $max . ", $max";
+        $query = "SELECT * FROM `img_list` WHERE `deprec` = 0 ORDER BY `date` DESC LIMIT " . $page * $max . ", $max";
         $result = mysqli_query($handle, $query);
         $result_array = array();
 
