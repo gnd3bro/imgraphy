@@ -46,24 +46,24 @@
     $mime = $tmp_img_info['mime'];
        
     
-
     switch ($mime) {
-        case 'imge/jpg':
-            convert($tmp_img, $thumb_name);                      
-            
+        case 'image/jpg':
+            convert($tmp_img, $thumb_name);
+
             break;
+
         case 'image/jpeg':
-            convert($tmp_img, $thumb_name);         
+            convert($tmp_img, $thumb_name);
             
             break;
         
         case 'image/png':
-            convert($tmp_img, $thumb_name);         
+            convert($tmp_img, $thumb_name);
             
             break;
         
         case 'image/gif':
-            convert($tmp_img, $thumb_name);      
+            convert($tmp_img, $thumb_name);
                         
             break;
         
