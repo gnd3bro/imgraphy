@@ -38,40 +38,33 @@
         exit;
     }
     
+    
     $tmp_img = "$tmp_dir/$uuid.$file_ext";
+    $thumb_name = "../files/thumb/$uuid.$file_ext";
+    
     $tmp_img_info = getimagesize($tmp_img);
     $mime = $tmp_img_info['mime'];
+       
     
-    $tmp_img_width = (int)trim($tmp_img_info[0]);
-    $tmp_img_height = (int)trim($tmp_img_info[1]);
-    
-    $thumb_name = "../files/thumb/$uuid.$file_ext";
-    $thumb_width = $tmp_img_width;
-    $thumb_height = $tmp_img_height;
-    
-    if($tmp_img_height > 512){
-        $thumb_height = 512;
-        $thumb_width = floor($tmp_img_width * $thumb_height / $tmp_img_height);
-    }
 
     switch ($mime) {
-        case 'imge/jpeg':
-            $create_function = 'imagecreatefromjpeg';
-            $save_function = 'imagejpg';
+        case 'imge/jpg':
+            convert($tmp_img, $thumb_name);                      
+            
             break;
         case 'image/jpeg':
-            $create_function = 'imagecreatefromjpeg';
-            $save_function = 'imagejpeg';
+            convert($tmp_img, $thumb_name);         
+            
             break;
         
         case 'image/png':
-            $create_function = 'imagecreatefrompng';
-            $save_function = 'imagepng';
+            convert($tmp_img, $thumb_name);         
+            
             break;
         
         case 'image/gif':
-            $create_function = 'imagecreatefromgif';
-            $save_function = 'imagegif';
+            convert($tmp_img, $thumb_name);      
+                        
             break;
         
         default:
@@ -79,14 +72,12 @@
             echo "{\"code\":\"error\",\"log\":\"failed to gen thumbnail\"}";
             exit;
     }
-    
-    $thumb_img_resource = imagecreatetruecolor($thumb_width, $thumb_height);
-    $tmp_img_resource = $create_function($tmp_img);
+      
+    function convert($tmp_img, $thumb_name){
+    exec ("convert $tmp_img -coalesce $thumb_name");
+    exec ("convert $thumb_name -resize 512x512 $thumb_name");
+    }
 
-    imagecopyresampled($thumb_img_resource, $tmp_img_resource, 0, 0, 0, 0, $thumb_width, $thumb_height, $tmp_img_width, $tmp_img_height);
-    
-    $save_function($thumb_img_resource, $thumb_name, 9);
-   
     $db_handle = sql_connect($keypath);
     if(!sql_query_img_insert($db_handle, $uuid, $file_ext, $tag, $license, $uploader)) {
         echo "{\"code\":\"error\",\"log\":\"sql insertion failed\"}";
