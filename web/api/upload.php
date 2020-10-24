@@ -68,7 +68,6 @@
             break;
         
         default:
-            throw new Exception('invalid image type');
             echo "{\"code\":\"error\",\"log\":\"failed to gen thumbnail\"}";
             exit;
     }
