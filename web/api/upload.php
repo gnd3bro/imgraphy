@@ -12,7 +12,7 @@
 
     $tmp_dir = "../../tmp/$uuid";
     $img_dir = "../files/img/$uuid";
-    $valid_ext = array('jpg', 'jpeg', 'png', 'gif');
+    $valid_ext = array('jpg', 'jpeg', 'png', 'gif', 'webp');
 
     $exception = $_FILES['uploadfile']['error'];
     $file_name = $_FILES['uploadfile']['name'];
@@ -24,7 +24,7 @@
     }
 
     if(!in_array($file_ext, $valid_ext)) {
-        echo "{\"code\":\"error\",\"log\":\"invalid file extension\"}";
+        echo "{\"code\":\"error\",\"log\":\"invalid file($file_name) extension -> $file_ext\"}";
         exit;
     }
 
@@ -46,30 +46,9 @@
     $mime = $tmp_img_info['mime'];
        
     
-    switch ($mime) {
-        case 'image/jpg':
-            convert($tmp_img, $thumb_name);
-
-            break;
-
-        case 'image/jpeg':
-            convert($tmp_img, $thumb_name);
-            
-            break;
-        
-        case 'image/png':
-            convert($tmp_img, $thumb_name);
-            
-            break;
-        
-        case 'image/gif':
-            convert($tmp_img, $thumb_name);
-                        
-            break;
-        
-        default:
-            echo "{\"code\":\"error\",\"log\":\"failed to gen thumbnail\"}";
-            exit;
+    if(!convert($tmp_img, $thumb_name)) {
+        echo "{\"code\":\"error\",\"log\":\"failed to gen thumbnail\"}";
+        exit;
     }
 
     $db_handle = sql_connect($keypath);
