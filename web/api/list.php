@@ -26,5 +26,5 @@
     
     $json_list = json_encode($array_list);
 
-    echo "$json_list";
+    echo $json_list;
 ?>
