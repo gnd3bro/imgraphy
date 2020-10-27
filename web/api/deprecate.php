@@ -1,5 +1,6 @@
 <?php
     require 'api.php';
+    
     header("Content-Type: application/json; charset=UTF-8");
 
     $keypath = "../../key.json";

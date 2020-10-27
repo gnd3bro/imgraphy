@@ -4,7 +4,6 @@
     header("Content-Type: application/json; charset=UTF-8");
     
     $keypath = "../../key.json";
-
     $uuid = genuuid();
     $tag = $_POST['tag'];
     $license = $_POST['license'];
