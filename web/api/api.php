@@ -74,7 +74,7 @@
     
     function convert($tmp_img, $thumb_name) {
         try {
-            exec("convert $tmp_img -coalesce -resize 512x512 $thumb_name");
+            exec("convert $tmp_img -coalesce -resize '30000@>' $thumb_name");
         } catch (\Throwable $th) {
             return false;
         }
