@@ -9,8 +9,7 @@
         return mysqli_connect($key["host"], $key["id"], $key["pw"], $key["db"]);
     }
 
-    function sql_query_img_list($handle, $max, $page) {
-        $query = "SELECT * FROM `img_list` WHERE `deprec` = 0 ORDER BY `date` DESC LIMIT " . $page * $max . ", $max";
+    function sql_query_img($handle, $query) {
         $result = mysqli_query($handle, $query);
         $result_array = array();
 
@@ -21,16 +20,16 @@
         return $result_array;
     }
 
+    function sql_query_img_list($handle, $max, $page) {
+        $query = "SELECT * FROM `img_list` WHERE `deprec` = 0 ORDER BY `date` DESC LIMIT " . $page * $max . ", $max";
+
+        return sql_query_img($handle, $query);
+    }
+
     function sql_query_img_lookup($handle, $keyword, $max, $page) {
-        $query = "SELECT * FROM `img_list` WHERE `uploader` LIKE '%$keyword%' OR `tag` LIKE '%$keyword%' ORDER BY `date` DESC LIMIT " . $page * $max . ", $max";
-        $result = mysqli_query($handle, $query);
-        $result_array = array();
-
-        while($row = mysqli_fetch_assoc($result)) {
-            array_push($result_array, $row);
-        }
-
-        return $result_array;
+        $query = "SELECT * FROM `img_list` WHERE `deprec` = 0 AND `uploader` LIKE '%$keyword%' OR `tag` LIKE '%$keyword%' ORDER BY `date` DESC LIMIT " . $page * $max . ", $max";
+        
+        return sql_query_img($handle, $query);
     }
 
     function sql_query_img_insert($handle, $uuid, $ext, $tag, $license, $uploader) {
