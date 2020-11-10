@@ -20,14 +20,14 @@
         return $result_array;
     }
 
-    function sql_query_img_list($handle, $max, $page) {
-        $query = "SELECT * FROM `img_list` WHERE `deprec` = 0 ORDER BY `date` DESC LIMIT " . $page * $max . ", $max";
+    function sql_query_img_list($handle, $max, $from) {
+        $query = "SELECT * FROM `img_list` WHERE `deprec` = 0 ORDER BY `date` DESC LIMIT $from, $max";
 
         return sql_query_img($handle, $query);
     }
 
-    function sql_query_img_lookup($handle, $keyword, $max, $page) {
-        $query = "SELECT * FROM `img_list` WHERE `deprec` = 0 AND `uploader` LIKE '%$keyword%' OR `tag` LIKE '%$keyword%' ORDER BY `date` DESC LIMIT " . $page * $max . ", $max";
+    function sql_query_img_lookup($handle, $keyword, $max, $from) {
+        $query = "SELECT * FROM `img_list` WHERE `uploader` LIKE '%$keyword%' OR `tag` LIKE '%$keyword%' AND `deprec` = 0 ORDER BY `date` DESC LIMIT $from, $max";
         
         return sql_query_img($handle, $query);
     }
