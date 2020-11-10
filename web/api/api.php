@@ -71,9 +71,9 @@
          );
      }
     
-    function convert($tmp_img, $thumb_name) {
+    function convert($img_dir, $uuid, $file_ext, $thumb_name) {
         try {
-            exec("convert $tmp_img -coalesce -resize '30000@>' $thumb_name");
+            exec("convert $img_dir/$uuid.$file_ext -coalesce -resize '30000@>' $thumb_name > /dev/null &");
         } catch (\Throwable $th) {
             return false;
         }
