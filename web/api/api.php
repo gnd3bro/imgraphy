@@ -73,7 +73,7 @@
     
     function convert($tmp_img, $thumb_name) {
         try {
-            exec("convert $tmp_img -coalesce -resize '30000@>' $thumb_name > /dev/null &");
+            exec("convert $tmp_img -coalesce -resize '30000@>' $thumb_name");
         } catch (\Throwable $th) {
             return false;
         }
