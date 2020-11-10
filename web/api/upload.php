@@ -45,10 +45,7 @@
     $mime = $tmp_img_info['mime'];
        
     
-    if(!convert($tmp_img, $thumb_name)) {
-        echo "{\"code\":\"error\",\"log\":\"failed to gen thumbnail\"}";
-        exit;
-    }
+
 
     $db_handle = sql_connect($keypath);
     if(!sql_query_img_insert($db_handle, $uuid, $file_ext, $tag, $license, $uploader)) {
@@ -63,5 +60,9 @@
 
     if(file_exists("$img_dir/$uuid.$file_ext") & file_exists("$img_dir/$uuid.$file_ext")) {
         echo "{\"code\":\"success\",\"log\":\"uploaded\"}";
+    }
+    if(!convert($img_dir, $uuid, $file_ext, $thumb_name)) {
+        echo "{\"code\":\"error\",\"log\":\"failed to gen thumbnail\"}";
+        exit;
     }
 ?>
