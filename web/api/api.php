@@ -27,7 +27,7 @@
     }
 
     function sql_query_img_lookup($handle, $keyword, $max, $from) {
-        $query = "SELECT * FROM `img_list` WHERE `uploader` LIKE '%$keyword%' OR `tag` LIKE '%$keyword%' AND `deprec` = 0 ORDER BY `date` DESC LIMIT $from, $max";
+        $query = "SELECT * FROM `img_list` WHERE (`uploader` LIKE '%$keyword%' OR `tag` LIKE '%$keyword%') AND `deprec` = 0 ORDER BY `date` DESC LIMIT $from, $max";
         
         return sql_query_img($handle, $query);
     }
@@ -68,8 +68,8 @@
            mt_rand(0, 0xffffffff),
            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff),
            mt_rand(0, 0xffff), mt_rand(0, 0xffffffff)
-         );
-     }
+        );
+    }
     
     function convert($img_dir, $uuid, $file_ext, $thumb_name) {
         try {
