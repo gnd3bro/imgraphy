@@ -39,10 +39,22 @@
         return $result;
     }
 
-    function sql_query_img_crement($handle, $uuid, $column, $type) {
-        $op = "+";
+    function sql_query_vote($handle, $uuid, $userid, $type) {
+        if(!($type == "inc" || $type == "dec")) {
+            return false;
+        }
+
+        $query = "INSERT INTO `fav_cnt` (`uuid`, `userid`) VALUES ('$uuid', '$userid')";
+
         if($type == "dec") {
-            $op = "-";
+            $query = "DELETE FROM `fav_cnt` WHERE `uuid` = '$uuid' AND `userid` = '$userid'";
+        }
+        
+        $result = mysqli_query($handle, $query);
+        
+        return $result;
+    }
+
     function sql_query_vote_check($handle, $uuid, $userid) {
         $query = "SELECT COUNT(*) FROM `fav_cnt` WHERE `uuid` = '$uuid' AND `userid` = '$userid'";
         
@@ -56,7 +68,13 @@
         return $result_array[0];
     }
 
-        $query = "UPDATE `img_list` SET `$column` = `$column` $op 1 WHERE `uuid` = '$uuid'";
+    function sql_query_fav_cnt($handle, $uuid) {
+        $query = "UPDATE `img_list` SET `favcnt` = (SELECT COUNT(*) FROM `fav_cnt` WHERE `uuid` = '$uuid') WHERE `uuid` = '$uuid'";
+        $result = mysqli_query($handle, $query);
+        
+        return $result;
+    }
+
         $result = mysqli_query($handle, $query);
         
         return $result;
