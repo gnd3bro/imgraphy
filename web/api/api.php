@@ -32,6 +32,18 @@
         return sql_query_img($handle, $query);
     }
 
+    function sql_query_img_recom($handle, $max, $from) {
+        $query = "SELECT * FROM `img_list` WHERE `deprec` = 0 ORDER BY `shrcnt` DESC LIMIT $from, $max";
+
+        return sql_query_img($handle, $query);
+    }
+
+    function sql_query_img_liked($handle, $userid, $max, $from) {
+        $query = "SELECT * FROM `img_list` WHERE `uuid` in (SELECT `uuid` FROM `fav_cnt` WHERE `userid` = '$userid') AND `deprec` = 0 ORDER BY `date` DESC LIMIT $from, $max";
+
+        return sql_query_img($handle, $query);
+    }
+
     function sql_query_img_insert($handle, $uuid, $ext, $tag, $license, $uploader) {
         $query = "INSERT INTO `img_list` (`uuid`, `ext`, `tag`, `license`, `uploader`) VALUES ('$uuid', '$ext', '$tag', $license, '$uploader')";
         $result = mysqli_query($handle, $query);
