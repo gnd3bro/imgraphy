@@ -23,7 +23,7 @@
     }
 
     if(!in_array($file_ext, $valid_ext)) {
-        echo "{\"code\":\"error\",\"log\":\"invalid file($file_name) extension -> $file_ext\"}";
+        echo "{\"code\":\"error\",\"log\":\"올바르지 않은 파일($file_name.$file_ext) 입니다.\"}";
         exit;
     }
 
@@ -37,16 +37,12 @@
         exit;
     }
     
-    
     $tmp_img = "$tmp_dir/$uuid.$file_ext";
     $thumb_name = "../files/thumb/$uuid.$file_ext";
     
     $tmp_img_info = getimagesize($tmp_img);
     $mime = $tmp_img_info['mime'];
        
-    
-
-
     $db_handle = sql_connect($keypath);
     if(!sql_query_img_insert($db_handle, $uuid, $file_ext, $tag, $license, $uploader)) {
         echo "{\"code\":\"error\",\"log\":\"sql insertion failed\"}";
@@ -58,11 +54,11 @@
         exit;
     }
 
-    if(file_exists("$img_dir/$uuid.$file_ext") & file_exists("$img_dir/$uuid.$file_ext")) {
-        echo "{\"code\":\"success\",\"log\":\"uploaded\"}";
-    }
-    if(!convert($img_dir, $uuid, $file_ext, $thumb_name)) {
-        echo "{\"code\":\"error\",\"log\":\"failed to gen thumbnail\"}";
+    if(!(file_exists("$img_dir/$uuid.$file_ext") && file_exists("$img_dir/$uuid.$file_ext"))) {
+        echo "{\"code\":\"error\",\"log\":\"게시물 업로드를 실패하였습니다.\"}";
         exit;
     }
+
+    convert($img_dir, $uuid, $file_ext, $thumb_name);
+    echo "{\"code\":\"success\",\"log\":\"게시물이 업로드 되었습니다.\"}";
 ?>

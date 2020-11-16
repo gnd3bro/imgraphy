@@ -19,5 +19,5 @@
         exit;
     }
 
-    echo "{\"code\":\"success\",\"log\":\"deprec graphy done\"}";
+    echo "{\"code\":\"success\",\"log\":\"게시물을 삭제하였습니다.\"}";
 ?>
