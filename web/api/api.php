@@ -43,7 +43,18 @@
         $op = "+";
         if($type == "dec") {
             $op = "-";
+    function sql_query_vote_check($handle, $uuid, $userid) {
+        $query = "SELECT COUNT(*) FROM `fav_cnt` WHERE `uuid` = '$uuid' AND `userid` = '$userid'";
+        
+        $result = mysqli_query($handle, $query);
+        $result_array = array();
+
+        while($row = mysqli_fetch_assoc($result)) {
+            array_push($result_array, $row);
         }
+        
+        return $result_array[0];
+    }
 
         $query = "UPDATE `img_list` SET `$column` = `$column` $op 1 WHERE `uuid` = '$uuid'";
         $result = mysqli_query($handle, $query);
