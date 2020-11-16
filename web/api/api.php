@@ -75,6 +75,8 @@
         return $result;
     }
 
+    function sql_query_shr_cnt($handle, $uuid) {
+        $query = "UPDATE `img_list` SET `shrcnt` = `shrcnt` + 1 WHERE `uuid` = '$uuid'";
         $result = mysqli_query($handle, $query);
         
         return $result;
@@ -86,7 +88,7 @@
             $op = "0";
         }
 
-        $query = "UPDATE `img_list` SET `$column`= $op WHERE `uuid` = '$uuid'";
+        $query = "UPDATE `img_list` SET `$column` = $op WHERE `uuid` = '$uuid'";
         $result = mysqli_query($handle, $query);
         
         return $result;
