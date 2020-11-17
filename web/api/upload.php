@@ -11,6 +11,7 @@
 
     $tmp_dir = "../../tmp/$uuid";
     $img_dir = "../files/img/$uuid";
+    $thumb_dir = "../files/thumb/$uuid";
     $valid_ext = array('jpg', 'jpeg', 'png', 'gif', 'webp');
 
     $exception = $_FILES['uploadfile']['error'];
@@ -59,6 +60,9 @@
         exit;
     }
 
-    convert($img_dir, $uuid, $file_ext, $thumb_name);
-    echo "{\"code\":\"success\",\"log\":\"게시물이 업로드 되었습니다.\"}";
+    $convert = exec("php convert.php $img_dir $uuid $file_ext > /dev/null &");
+        echo $convert;
+        echo "{\"code\":\"success\",\"log\":\"게시물이 업로드 되었습니다.\"}";
+
+
 ?>
