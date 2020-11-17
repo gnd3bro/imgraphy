@@ -36,13 +36,7 @@
     if(!move_uploaded_file( $_FILES['uploadfile']['tmp_name'], "$tmp_dir/$uuid.$file_ext")) {
         echo "{\"code\":\"error\",\"log\":\"tmp file not found\"}";
         exit;
-    }
-    
-    $tmp_img = "$tmp_dir/$uuid.$file_ext";
-    $thumb_name = "../files/thumb/$uuid.$file_ext";
-    
-    $tmp_img_info = getimagesize($tmp_img);
-    $mime = $tmp_img_info['mime'];
+    } 
        
     $db_handle = sql_connect($keypath);
     if(!sql_query_img_insert($db_handle, $uuid, $file_ext, $tag, $license, $uploader)) {
@@ -63,6 +57,5 @@
     $convert = exec("php convert.php $img_dir $uuid $file_ext > /dev/null &");
         echo $convert;
         echo "{\"code\":\"success\",\"log\":\"게시물이 업로드 되었습니다.\"}";
-
-
+        
 ?>
