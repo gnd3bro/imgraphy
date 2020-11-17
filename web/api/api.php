@@ -113,14 +113,4 @@
            mt_rand(0, 0xffff), mt_rand(0, 0xffffffff)
         );
     }
-    
-    function convert($img_dir, $uuid, $file_ext, $thumb_name) {
-        try {
-            exec("convert $img_dir/$uuid.$file_ext -coalesce -resize '30000@>' $thumb_name > /dev/null &");
-        } catch (\Throwable $th) {
-            return false;
-        }
-
-        return true;
-    }
 ?>
